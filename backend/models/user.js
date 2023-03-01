@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb');
 const { getDB } = require('../config/mongodb');
 
 class Users {
@@ -18,6 +19,14 @@ class Users {
       name,
     });
     return;
+  }
+
+  static async login({ email }) {
+    return await this.model().findOne({ email });
+  }
+
+  static async findById(id) {
+    return await this.model().findOne({ _id: new ObjectId(id) });
   }
 }
 
