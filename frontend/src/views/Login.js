@@ -45,7 +45,7 @@ function Login() {
         }
         if (data.access_token) {
           localStorage.access_token = data.access_token;
-          // navigate('/');
+          navigate('/');
           return;
         }
       })

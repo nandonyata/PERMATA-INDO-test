@@ -8,9 +8,9 @@ function App() {
   return (
     <>
       <div className="App">
-        {/* <Provider store={store}> */}
-        <RouterProvider router={router} />
-        {/* </Provider> */}
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
       </div>
       ;
     </>
