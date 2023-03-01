@@ -1,8 +1,9 @@
 import '../Layout.css';
 import Container from 'react-bootstrap/esm/Container';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 export default function Layout() {
+  const navigate = useNavigate();
   return (
     <>
       <div>
@@ -12,7 +13,7 @@ export default function Layout() {
         </Container>
       </div>
       <nav className="main-menu fixed-top">
-        <ul>
+        {/* <ul>
           <li>
             <a href="#" onClick={() => console.log('terkelikkk')}>
               <i className="fa fa-home fa-2x"></i>
@@ -32,11 +33,18 @@ export default function Layout() {
               <span className="nav-text">Add Category</span>
             </a>
           </li>
-        </ul>
+        </ul> */}
 
         <ul className="logout">
           <li>
-            <a href="#">
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                localStorage.clear();
+                navigate('/login');
+              }}
+            >
               <i className="fa fa-power-off fa-2x"></i>
               <span className="nav-text">Logout</span>
             </a>

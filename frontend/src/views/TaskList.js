@@ -1,12 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MDBBtn, MDBCard, MDBCardBody, MDBCol, MDBContainer, MDBInput, MDBRow, MDBTable, MDBTableBody, MDBTableHead } from 'mdb-react-ui-kit';
 import Form from 'react-bootstrap/Form';
 import ModalTask from '../components/ModalTask';
 import ModalCategory from '../components/ModalCategory';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCategory, fetchTask } from '../store/actionCreator';
+import TableRow from '../components/TableRow';
 
 export default function TaskList() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalCat, setModalCat] = useState(false);
+  const [data2, setData2] = useState([]);
+
+  const dispatch = useDispatch();
+
+  const data = useSelector((state) => state.tasks);
+  const dataCategories = useSelector((state) => state.categories);
+
+  useEffect(() => {
+    dispatch(fetchTask());
+    dispatch(fetchCategory());
+  }, []);
+
+  const handleFilterByCategory = (e) => {
+    const value = e.target.value;
+
+    if (value == 'All') {
+      setData2(data);
+      return;
+    }
+
+    const temp = data.filter((el) => el.categoryName == value);
+    setData2(temp);
+  };
 
   return (
     // <section className="vh-100" style={{ backgroundColor: '#eee' }}>
@@ -47,8 +73,15 @@ export default function TaskList() {
 
                 <div style={{ paddingBottom: 10 }}>
                   <p className="small mb-0 me-2 text-muted">Filter</p>
-                  <Form.Select size="sm" className="w-25">
+                  <Form.Select onChange={handleFilterByCategory} size="sm" className="w-25">
                     <option>All</option>
+                    {dataCategories.map((el) => {
+                      return (
+                        <option key={el.name} value={el.name}>
+                          {el.name}
+                        </option>
+                      );
+                    })}
                   </Form.Select>
                 </div>
 
@@ -62,46 +95,13 @@ export default function TaskList() {
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>
-                        <del>Buy groceries for next week</del>
-                      </td>
-                      <td>In progress</td>
-                      <td>
-                        <MDBBtn type="submit" color="danger">
-                          Delete
-                        </MDBBtn>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Renew car insurance</td>
-                      <td>In progress</td>
-                      <td>
-                        <MDBBtn type="submit" color="danger">
-                          Delete
-                        </MDBBtn>
+                    {/* {data.map((task, i) => {
+                      return <TableRow key={task._id} task={task} i={i} />;
+                    })} */}
 
-                        <MDBBtn type="submit" color="success" className="ms-1">
-                          Finished
-                        </MDBBtn>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>Sign up for online course</td>
-                      <td>In progress</td>
-                      <td>
-                        <MDBBtn type="submit" color="danger">
-                          Delete
-                        </MDBBtn>
-
-                        <MDBBtn type="submit" color="success" className="ms-1">
-                          Finished
-                        </MDBBtn>
-                      </td>
-                    </tr>
+                    {data2.map((task, i) => {
+                      return <TableRow key={task._id} task={task} i={i} />;
+                    })}
                   </MDBTableBody>
                 </MDBTable>
               </MDBCardBody>

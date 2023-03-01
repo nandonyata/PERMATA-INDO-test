@@ -17,6 +17,10 @@ class Category {
     });
     return;
   }
+
+  static async findById(id) {
+    return await this.model().findOne({ _id: new ObjectId(id) });
+  }
 }
 
 module.exports = Category;

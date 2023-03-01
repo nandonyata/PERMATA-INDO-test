@@ -1,4 +1,4 @@
-import './App.css';
+// import './App.css';
 import router from './router';
 import { RouterProvider } from 'react-router-dom';
 import store from './store';
@@ -12,7 +12,6 @@ function App() {
           <RouterProvider router={router} />
         </Provider>
       </div>
-      ;
     </>
   );
 }

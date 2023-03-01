@@ -10,8 +10,8 @@ class Task {
     return await this.model().find({ UserId: id }).toArray();
   }
 
-  static async addTask({ name, UserId, CategoryId }) {
-    await this.model().insertOne({ name, UserId, CategoryId, isDone: false });
+  static async addTask({ name, UserId, CategoryId, categoryName }) {
+    await this.model().insertOne({ name, UserId, CategoryId, categoryName, isDone: false });
     return;
   }
 

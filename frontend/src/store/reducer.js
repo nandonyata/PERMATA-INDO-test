@@ -1,7 +1,8 @@
-import { FETCH_TASK_SUCCESS } from './actionType';
+import { FETCH_CATEGORY_SUCCESS, FETCH_TASK_SUCCESS } from './actionType';
 
 const initalState = {
   tasks: [],
+  categories: [],
 };
 
 export default function counterReducer(state = initalState, action) {
@@ -10,6 +11,12 @@ export default function counterReducer(state = initalState, action) {
       return {
         ...state,
         tasks: action.payload,
+      };
+
+    case FETCH_CATEGORY_SUCCESS:
+      return {
+        ...state,
+        categories: action.payload,
       };
 
     default:
