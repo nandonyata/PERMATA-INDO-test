@@ -32,7 +32,7 @@ export default function ModalTask(props) {
   const submitHandler = (e) => {
     e.preventDefault();
     // console.log(formModal);
-
+    // return;
     fetch(baseUrl + '/tasks', {
       method: 'POST',
       body: JSON.stringify(formModal),

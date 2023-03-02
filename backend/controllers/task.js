@@ -4,8 +4,14 @@ const Category = require('../models/category');
 class Controllers {
   static async findAll(req, res) {
     try {
-      const data = await Task.findAll(req.user._id);
-      const cat = await Category.findById(data[0].CategoryId);
+      const { category } = req.query;
+      // console.log(category);
+      let data;
+      if (category) {
+        data = await Task.findAllQuery(req.user._id, category);
+      } else {
+        data = await Task.findAll(req.user._id);
+      }
 
       res.status(200).json(data);
     } catch (error) {

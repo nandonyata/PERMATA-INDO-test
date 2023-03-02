@@ -19,4 +19,6 @@ router.post('/tasks', taskControllers.addTask);
 router.patch('/tasks/:id', taskControllers.updateTask);
 router.delete('/tasks/:id', taskControllers.delete);
 
+router.get('/tasks?category=', taskControllers.findAll);
+
 module.exports = router;

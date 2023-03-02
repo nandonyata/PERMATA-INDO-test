@@ -25,13 +25,15 @@ export default function TaskList() {
   const handleFilterByCategory = (e) => {
     const value = e.target.value;
 
-    if (value == 'All') {
-      setData2(data);
-      return;
-    }
+    dispatch(fetchTask(value));
 
-    const temp = data.filter((el) => el.categoryName == value);
-    setData2(temp);
+    // if (value == 'All') {
+    //   setData2(data);
+    //   return;
+    // }
+
+    // const temp = data.filter((el) => el.categoryName == value);
+    // setData2(temp);
   };
 
   return (
@@ -74,7 +76,7 @@ export default function TaskList() {
                 <div style={{ paddingBottom: 10 }}>
                   <p className="small mb-0 me-2 text-muted">Filter</p>
                   <Form.Select onChange={handleFilterByCategory} size="sm" className="w-25">
-                    <option>All</option>
+                    <option value="">All</option>
                     {dataCategories.map((el) => {
                       return (
                         <option key={el.name} value={el.name}>
@@ -99,7 +101,7 @@ export default function TaskList() {
                       return <TableRow key={task._id} task={task} i={i} />;
                     })} */}
 
-                    {data2.map((task, i) => {
+                    {data.map((task, i) => {
                       return <TableRow key={task._id} task={task} i={i} />;
                     })}
                   </MDBTableBody>
